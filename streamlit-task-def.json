@@ -1,0 +1,29 @@
+{
+  "family": "housing-streamlit",
+  "networkMode": "awsvpc",
+  "executionRoleArn": "arn:aws:iam::062677866867:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::062677866867:role/ecs_s3_access",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "512",
+  "memory": "1024",
+  "containerDefinitions": [
+    {
+      "name": "housing-streamlit",
+      "image": "062677866867.dkr.ecr.ap-south-1.amazonaws.com/housing-streamlit:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8501,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "STREAMLIT_SERVER_PORT", "value": "8501" },
+        { "name": "STREAMLIT_SERVER_ADDRESS", "value": "0.0.0.0" },
+        { "name": "API_URL", "value": "http://CHANGE_THIS_TO_MUMBAI_ALB_URL/predict" }
+      ]
+    }
+  ]
+}
